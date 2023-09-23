@@ -1,10 +1,32 @@
 package com.application.vocealuga.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "manutencao")
 public class Manutencao {
+
+    @Id
+    @GeneratedValue
+    @Column(name = "id_manutencao")
+    private Long id;
+    private String valor;
+    private String descricao;
+    @Column(name = "data_entrada")
+    private String dataEntrada;
+    @Column(name = "data_saida")
+    private String dataSaida;
+    @Column(name = "id_veiculo")
+    private Long idVeiculo;
+    @Column(name = "id_funcionario")
+    private Long idFuncionario;
 
 }

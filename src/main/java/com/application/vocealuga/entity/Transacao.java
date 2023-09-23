@@ -1,23 +1,26 @@
 package com.application.vocealuga.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "transacao")
 public class Transacao {
-
     @Id
     @GeneratedValue
-    private Long id_transacao;
-
-    public void setId_transacao(Long idTransacao) {
-        this.id_transacao = idTransacao;
-    }
-
-    public Long getIdTransacao() {
-        return id_transacao;
-    }
+    @Column(name = "id_transacao")
+    private Long idTransacao;
+    private String forma;
+    private String descricao;
+    @Column(name = "id_cliente")
+    private Long idCliente;
+    @Column(name = "id_funcionario")
+    private Long idFuncionario;
 }
