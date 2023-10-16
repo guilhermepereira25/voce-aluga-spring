@@ -19,6 +19,8 @@ public class Estoque {
     private Long id;
     @Column(name = "quantidade_geral")
     private Integer quantidadeGeral;
-    @Column(name = "id_veiculo")
-    private Integer idVeiculo;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_veiculo")
+    private Veiculo veiculo;
 }

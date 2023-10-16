@@ -6,6 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -17,10 +20,9 @@ public class Permissao {
     @GeneratedValue
     @Column(name = "id_permissao")
     private Long id;
-    @Column(name = "cargo_permissao")
-    private String cargo;
-    @Column(name = "id_cliente")
-    private Long idCliente;
-    @Column(name = "id_funcionario")
-    private Long idFuncionario;
+    @Column(name = "nome")
+    private String nome;
+
+    @ManyToMany(mappedBy = "permissao")
+    private List<ClienteEntity> clientes = new ArrayList<>();
 }

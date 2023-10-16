@@ -17,6 +17,8 @@ public class Fidelidade {
     @GeneratedValue
     @Column(name = "id_programa_fidelidade")
     private Long id;
-    @Column(name = "id_cliente")
-    private Long idCliente;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_cliente")
+    private ClienteEntity cliente;
 }

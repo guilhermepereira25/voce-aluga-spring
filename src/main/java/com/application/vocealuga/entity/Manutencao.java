@@ -24,9 +24,12 @@ public class Manutencao {
     private String dataEntrada;
     @Column(name = "data_saida")
     private String dataSaida;
-    @Column(name = "id_veiculo")
-    private Long idVeiculo;
-    @Column(name = "id_funcionario")
-    private Long idFuncionario;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_veiculo")
+    private Veiculo veiculo;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_funcionario")
+    private Funcionario funcionario;
 
 }

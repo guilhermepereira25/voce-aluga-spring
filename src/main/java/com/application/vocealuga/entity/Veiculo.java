@@ -24,12 +24,17 @@ public class Veiculo {
     private Integer km;
     @Column(name = "situacao")
     private String status;
-    @Column(name = "id_agencia")
-    private Long idAgencia;
-    @Column(name = "id_cliente")
-    private Long idCliente;
-    @Column(name = "id_motorista")
-    private Long idMotorista;
-    @Column(name = "id_funcionario")
-    private Long idFuncionario;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_agencia")
+    private Agencia agencia;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_cliente")
+    private ClienteEntity cliente;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_motorista")
+    private Motorista motorista;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_manutencao")
+    private Funcionario funcionario;
 }

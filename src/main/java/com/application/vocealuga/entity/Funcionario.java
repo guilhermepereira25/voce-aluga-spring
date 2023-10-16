@@ -13,11 +13,17 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity
 @Table(name = "funcionario")
-public class Funcionario extends Cliente {
+public class Funcionario {
     private String cargo;
-    protected String senha;
+    private String senha;
+    private String documento;
+
     @Id
     @GeneratedValue
     @Column(name = "id_funcionario")
     private Long id;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_cliente", nullable = false)
+    private ClienteEntity cliente;
 }

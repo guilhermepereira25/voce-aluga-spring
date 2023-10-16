@@ -19,8 +19,11 @@ public class Transacao {
     private Long idTransacao;
     private String forma;
     private String descricao;
-    @Column(name = "id_cliente")
-    private Long idCliente;
-    @Column(name = "id_funcionario")
-    private Long idFuncionario;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_cliente")
+    private ClienteEntity cliente;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_veiculo")
+    private Funcionario funcionario;
 }

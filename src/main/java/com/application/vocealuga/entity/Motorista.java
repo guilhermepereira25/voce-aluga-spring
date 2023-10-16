@@ -12,7 +12,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Entity
 @Table(name = "motorista")
-public class Motorista extends Cliente {
+public class Motorista {
     @Id
     @GeneratedValue
     @Column(name = "id_motorista")
@@ -20,7 +20,8 @@ public class Motorista extends Cliente {
     private String cnh;
     private String categoria;
     private String nome;
-    @Column(name = "id_cliente")
-    private Long idCliente;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_cliente", referencedColumnName = "id_cliente")
+    private ClienteEntity cliente;
 }
