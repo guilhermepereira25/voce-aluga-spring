@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<head>
+    <th:block th:insert="~{fragments/general :: head}"></th:block>
+    <title>Voce Aluga - Login</title>
+
+    <script th:inline="javascript">
+        function validate() {
+            if (document.f.username.value === "") {
+                alert('Por favor, digite seu documento');
+                document.f.username.focus();
+                return false;
+            }
+
+            if (document.f.password.value === "") {
+                alert('Por favor, digite sua senha');
+                document.f.password.focus();
+                return false;
+            }
+
+            if (document.f.username.value.length === 11) {
+                if (isNaN(document.f.username.value)) {
+                    alert('Por favor, digite um documento válido');
+                    document.f.username.focus();
+                    return false;
+                }
+                return true;
+            }
+
+            if (document.f.username.value.length === 14) {
+                if (isNaN(document.f.username.value)) {
+                    alert('Por favor, digite um documento válido');
+                    document.f.username.focus();
+                    return false;
+                }
+                return true;
+            }
+        }
+    </script>
+
+    <style>
+        #welcometext {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 2rem;
+        }
+
+        .document-form-div {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div th:if="${message != null}" class="alert alert-info" th:utext="${message}"></div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+                <h1>Login</h1>
+
+                <div th:if="${param.error}" class="alert alert-danger mt-2">Documento ou senha incorretos.</div>
+
+
+            <form name="f" th:action="@{/login}" method='POST' onsubmit="return validate();">
+                    <span id="welcometext">Por favor, digite suas credencias</span><br/>
+
+                    <div class="form-group">
+                        <select onchange="handleSelectedClientType()" id="client-select" class="form-select" aria-label="Default select example">
+                            <option value="0" selected>Selecione seu identificador unico</option>
+                            <option value="1">Pessoa Física</option>
+                            <option value="2">Pessoa Jurídica</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group document-form-div">
+                        <label for="username" class="col-sm-4 document-form-div">Documento</label>
+                        <input
+                                id="username"
+                                name="username"
+                                class="form-control document-form-div"
+                                type='text'
+                                placeholder="Digite seu documento"
+                        />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password" class="col-sm-4">Senha</label>
+                        <input
+                                id="password"
+                                class="form-control"
+                                type='password'
+                                name='password'
+                                placeholder="Digite sua senha"
+                        />
+                    </div>
+
+                    <input class="btn btn-primary mt-3" name="submit" type="submit"/>
+                    <a style="margin-left: 10px" th:href="@{/cadastro}">Não tem uma conta?</a>
+                </form>
+            </div>
+        </div>
+</div>
+
+
+<th:block th:insert="~{fragments/general :: jquery-plugin}"></th:block>
+<th:block th:insert="~{fragments/general :: js-bootstrap}"></th:block>
+
+<script th:inline="javascript">
+    function handleSelectedClientType() {
+        const selectedClientType = $("#client-select").val();
+
+        if ($(".document-form-div").is(":visible")) {
+            $(".document-form-div").hide();
+        }
+
+        if ($("#error-message").is(":visible")) {
+            $("#error-message").hide();
+        }
+
+        switch (selectedClientType) {
+            case "1":
+            case "2":
+                $(".document-form-div").show();
+                break;
+
+            default:
+                $("#error-message").text("Selecione uma opção válida").show();
+        }
+    }
+</script>
+</body>
+</html>
