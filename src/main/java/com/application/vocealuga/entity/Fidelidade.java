@@ -14,7 +14,7 @@ import lombok.Setter;
 @Table(name = "programa_fidelidade")
 public class Fidelidade {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_programa_fidelidade")
     private Long id;
 

@@ -19,7 +19,7 @@ public class Funcionario {
     private String documento;
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_funcionario")
     private Long id;
 

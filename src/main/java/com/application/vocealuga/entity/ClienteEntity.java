@@ -16,7 +16,7 @@ import java.util.Collection;
 @Table(name = "cliente")
 public class ClienteEntity {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_cliente")
     private Long id;
     protected String nome;
