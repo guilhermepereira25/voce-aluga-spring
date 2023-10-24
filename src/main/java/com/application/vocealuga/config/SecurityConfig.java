@@ -1,9 +1,12 @@
-package com.application.vocealuga.security;
+package com.application.vocealuga.config;
 
+import com.application.vocealuga.security.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -30,7 +33,10 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers(new AntPathRequestMatcher("/login"), new AntPathRequestMatcher("/cadastro"), new AntPathRequestMatcher("/cadastro/criarCliente")).permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("/cadastro")).permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("/cadastrar")).permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("/login")).permitAll()
+                        .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form
                         .loginPage("/login")
@@ -42,7 +48,13 @@ public class SecurityConfig {
         return httpSecurity.build();
     }
 
-    public void configure(AuthenticationManagerBuilder builder) throws Exception {
+    @Bean
+    public AuthenticationManager authenticationManagerBean(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+        return authenticationConfiguration.getAuthenticationManager();
+    }
+
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder builder) throws Exception {
         builder.userDetailsService(customUserDetailsService).passwordEncoder(passwordEncoder());
     }
 }
