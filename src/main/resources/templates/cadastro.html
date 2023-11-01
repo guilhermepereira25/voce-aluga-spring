@@ -30,10 +30,11 @@
                     <div th:if="${param.success}" class="alert alert-info mt-2">Cadastro concluído.</div>
 
 
-                    <form role="form" th:action="@{/cadastrar}" method='POST' th:object="${cliente}" onsubmit="handleSubmitRequest()">
+                    <form role="form" th:action="@{/cadastrar}" method='POST' th:object="${cliente}" onsubmit="return handleSubmitRequest();">
                         <div class="form-group">
                             <label for="nome">Nome</label>
                             <input
+                                    required
                                     id="nome"
                                     class="form-control"
                                     type='text'
@@ -96,6 +97,7 @@
                         <div class="form-group">
                             <label for="contato" class="col-sm-4">Telefone</label>
                             <input
+                                    required
                                     id="contato"
                                     class="form-control"
                                     type='text'
@@ -107,6 +109,7 @@
                         <div class="form-group">
                             <label for="idade">Idade</label>
                             <input
+                                    required
                                     id="idade"
                                     class="form-control"
                                     type='number'
@@ -118,6 +121,7 @@
                         <div class="form-group">
                             <label for="senha" class="col-sm-4">Senha</label>
                             <input
+                                    required
                                     id="senha"
                                     class="form-control"
                                     type='password'
