@@ -163,7 +163,7 @@ UNLOCK TABLES;
 -- Table structure for table `mauntencao`
 --
 
-DROP TABLE IF EXISTS `mauntencao`;
+DROP TABLE IF EXISTS manutencao;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `mauntencao` (
@@ -188,9 +188,9 @@ CREATE TABLE `mauntencao` (
 -- Dumping data for table `mauntencao`
 --
 
-LOCK TABLES `mauntencao` WRITE;
-/*!40000 ALTER TABLE `mauntencao` DISABLE KEYS */;
-/*!40000 ALTER TABLE `mauntencao` ENABLE KEYS */;
+LOCK TABLES manutencao WRITE;
+/*!40000 ALTER TABLE manutencao DISABLE KEYS */;
+/*!40000 ALTER TABLE manutencao ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
