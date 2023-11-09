@@ -32,8 +32,10 @@ public class CustomUserDetailsService implements UserDetailsService {
             }
         }
 
+        String username = String.format(clienteEntity.getNome()).toLowerCase();
+
         return new User(
-                clienteEntity.getNome(),
+                username,
                 clienteEntity.getSenha(),
                 clienteEntity.getPermissao().stream().map((role) -> new SimpleGrantedAuthority(role.getNome()))
                         .collect(Collectors.toList())
