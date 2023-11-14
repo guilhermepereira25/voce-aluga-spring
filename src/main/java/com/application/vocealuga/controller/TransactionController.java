@@ -1,11 +1,11 @@
 package com.application.vocealuga.controller;
 
 import com.application.vocealuga.dto.TransactionDto;
-import com.application.vocealuga.entity.TransactionEntity;
-import com.application.vocealuga.repository.TransactionRepository;
+import com.application.vocealuga.service.impl.TransactionServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
@@ -13,10 +13,10 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @EnableWebMvc
 public class TransactionController {
     /* repository */
-    private TransactionRepository transactionRepository;
+    private TransactionServiceImpl transactionService;
 
-    public TransactionController(TransactionRepository transactionRepository) {
-        this.transactionRepository = transactionRepository;
+    public TransactionController(TransactionServiceImpl transactionService) {
+        this.transactionService = transactionService;
     }
 
     @GetMapping("/pagamento")
@@ -25,15 +25,12 @@ public class TransactionController {
         return "transaction";
     }
 
-    @PostMapping("/pagamento")
-    public String createTransaction(TransactionDto transactionDto) {
-        TransactionEntity transactionEntity = new TransactionEntity();
-        transactionEntity.setForma(transactionDto.getForma());
-        transactionEntity.setDescricao(transactionDto.getDescricao());
-
+    @PostMapping("/pagar")
+    public String createTransaction(@ModelAttribute TransactionDto transactionDto) {
         try {
-            transactionRepository.save(transactionEntity);
+            transactionService.saveTransaction(transactionDto);
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             return "redirect:/pagamento?error";
         }
 
