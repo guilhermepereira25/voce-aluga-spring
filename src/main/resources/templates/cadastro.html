@@ -208,6 +208,14 @@
         }
 
         function handleSubmitRequest() {
+            let idade = $("#idade").val();
+
+            if (idade < 18) {
+                $("#error-message").text("Idade inválida, por favor, cadastre uma pessoa maior de 18 anos").show();
+                $("#idade").val("").focus();
+                return false;
+            }
+
             const selectedUserType = $("#select-user-type").val();
 
             if (selectedUserType === "0") {
