@@ -41,7 +41,7 @@ public class ClienteServiceImpl implements ClienteService {
     }
 
     @Override
-    public boolean saveCliente(RegistrationDto registrationDTO) {
+    public boolean saveCliente(RegistrationDto registrationDTO) throws PermissaoNotFoundException {
         ClienteEntity clienteEntity = new ClienteEntity();
 
         clienteEntity.setNome(registrationDTO.getNome());
