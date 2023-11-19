@@ -13,7 +13,7 @@ public class FuncionarioServiceImpl implements FuncionarioService {
     private FuncionarioRepository funcionarioRepository;
     private ClienteRepository clienteRepository;
 
-    public FuncionarioServiceImpl(FuncionarioRepository funcionarioRepository) {
+    public FuncionarioServiceImpl(FuncionarioRepository funcionarioRepository, ClienteRepository clienteRepository) {
         this.funcionarioRepository = funcionarioRepository;
         this.clienteRepository = clienteRepository;
     }
