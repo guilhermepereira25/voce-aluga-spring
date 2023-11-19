@@ -15,7 +15,7 @@ import lombok.Setter;
 @Table(name = "funcionario")
 public class Funcionario {
     private String cargo;
-    private String senha;
+    private String nome;
     private String documento;
 
     @Id
