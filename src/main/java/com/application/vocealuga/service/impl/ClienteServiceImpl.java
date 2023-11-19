@@ -37,7 +37,7 @@ public class ClienteServiceImpl implements ClienteService {
 
     @Override
     public ClienteEntity getClienteById(Long id) {
-        return null;
+        return clienteRepository.getReferenceById(id);
     }
 
     @Override
