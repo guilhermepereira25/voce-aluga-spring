@@ -24,7 +24,7 @@ public class FuncionarioController {
         return "cadastrar-funcionario";
     }
 
-    @PostMapping("/cadastrarFuncionar")
+    @PostMapping("/cadastrarFuncionario")
     public String cadastrarFuncionario(@ModelAttribute FuncionarioDto funcionarioDto) {
         try {
             funcionarioService.createFuncionario(funcionarioDto);
