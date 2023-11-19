@@ -1,10 +1,7 @@
 package com.application.vocealuga.controller;
 
 import com.application.vocealuga.dto.FuncionarioDto;
-import com.application.vocealuga.entity.Funcionario;
-import com.application.vocealuga.repository.FuncionarioRepository;
-import com.application.vocealuga.service.ClienteService;
-import com.application.vocealuga.service.impl.ClienteServiceImpl;
+import com.application.vocealuga.service.impl.FuncionarioServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,12 +12,10 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @Controller
 @EnableWebMvc
 public class FuncionarioController {
-    private FuncionarioRepository funcionarioRepository;
-    private ClienteServiceImpl clienteService;
+    private FuncionarioServiceImpl funcionarioService;
 
-    public FuncionarioController(FuncionarioRepository funcionarioRepository, ClienteServiceImpl clienteService) {
-        this.funcionarioRepository = funcionarioRepository;
-        this.clienteService = clienteService;
+    public FuncionarioController(FuncionarioServiceImpl funcionarioService) {
+        this.funcionarioService = funcionarioService;
     }
 
     @GetMapping("/cadastroFuncionario")
@@ -30,13 +25,13 @@ public class FuncionarioController {
     }
 
     @PostMapping("/cadastrarFuncionar")
-    public void cadastrarFuncionario(@ModelAttribute FuncionarioDto funcionarioDto) {
-        Funcionario funcionario = new Funcionario();
-        funcionario.setNome(funcionarioDto.getNome());
-        funcionario.setDocumento(funcionarioDto.getDocumento());
-        funcionario.setCargo(funcionarioDto.getCargo());
-
-
-        funcionarioRepository.save(funcionario);
+    public String cadastrarFuncionario(@ModelAttribute FuncionarioDto funcionarioDto) {
+        try {
+            funcionarioService.createFuncionario(funcionarioDto);
+            return "redirect:/cadastroFuncionario?success";
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return "redirect:/cadastroFuncionario?error";
+        }
     }
 }
