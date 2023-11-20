@@ -56,7 +56,7 @@
     </style>
 </head>
 <body>
-    <form th:action="@{/cadastrarFuncionario}" th:object="${funcionario}">
+    <form method="post" th:action="@{/cadastrarFuncionario}" th:object="${funcionario}">
         <h1>Cadastro Funcionário</h1>
 
         <label for="nome">Nome:</label>
