@@ -2,10 +2,14 @@ package com.application.vocealuga.service.impl;
 
 import com.application.vocealuga.dto.VeiculoDto;
 import com.application.vocealuga.entity.Agencia;
+import com.application.vocealuga.entity.ClienteEntity;
 import com.application.vocealuga.entity.Veiculo;
 import com.application.vocealuga.repository.AgenciaRepository;
+import com.application.vocealuga.repository.ClienteRepository;
 import com.application.vocealuga.repository.VeiculoRepository;
 import com.application.vocealuga.service.VeiculoService;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,14 +18,24 @@ import java.util.List;
 public class VeiculoServiceImpl implements VeiculoService {
     private VeiculoRepository veiculoRepository;
     private AgenciaRepository agenciaRepository;
+    private ClienteRepository clienteRepository;
 
-    public VeiculoServiceImpl(VeiculoRepository veiculoRepository, AgenciaRepository agenciaRepository) {
+    public VeiculoServiceImpl(VeiculoRepository veiculoRepository, AgenciaRepository agenciaRepository, ClienteRepository clienteRepository) {
         this.veiculoRepository = veiculoRepository;
         this.agenciaRepository = agenciaRepository;
+        this.clienteRepository = clienteRepository;
     }
 
     public List<Veiculo> findAll() {
         return veiculoRepository.findAll();
+    }
+
+    public List<Veiculo> findBySituacao(String situacao) {
+        return veiculoRepository.findByStatus(situacao);
+    }
+
+    public Veiculo findById(Long id) {
+        return veiculoRepository.findById(id).orElse(null);
     }
 
     @Override
@@ -30,11 +44,35 @@ public class VeiculoServiceImpl implements VeiculoService {
         veiculo.setPlaca(veiculoDto.getPlaca());
         veiculo.setModelo(veiculoDto.getModelo());
         veiculo.setKm(veiculoDto.getKm());
+        veiculo.setCor(veiculoDto.getCor());
         veiculo.setStatus(veiculoDto.getStatus());
         veiculo.setDescricao(veiculoDto.getDescricao());
         veiculo.setAno(veiculoDto.getAno());
         Agencia agencia = agenciaRepository.findById(veiculoDto.getAgenciaId()).orElse(null);
         veiculo.setAgencia(agencia);
+
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails) {
+            String username = ((UserDetails)principal).getUsername();
+
+            ClienteEntity cliente;
+            if (username.length() == 11) {
+                cliente = clienteRepository.findByCpf(username);
+            } else {
+                cliente = clienteRepository.findByCnpj(username);
+            }
+            veiculo.setCliente(cliente);
+        } else {
+            String username = principal.toString();
+
+            if (username.length() == 11) {
+                ClienteEntity cliente = clienteRepository.findByCpf(username);
+                veiculo.setCliente(cliente);
+            } else {
+                ClienteEntity cliente = clienteRepository.findByCnpj(username);
+                veiculo.setCliente(cliente);
+            }
+        }
 
         try {
             veiculoRepository.save(veiculo);
