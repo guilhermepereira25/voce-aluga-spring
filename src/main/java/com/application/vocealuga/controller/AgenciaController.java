@@ -20,17 +20,11 @@ public class AgenciaController {
 
     @GetMapping("/agencia")
     String agencia(Model model) {
-        model.addAttribute("agencias", agenciaService.findAll());
-        return "agencia";
-    }
-
-    @GetMapping("/agencia/create")
-    String storeAgencia(Model model) {
         model.addAttribute("agencia", new AgenciaDto());
         return "agencia";
     }
 
-    @PostMapping("/agencia")
+    @PostMapping("/criarAgencia")
     public String createAgencia(@ModelAttribute AgenciaDto agenciaDto) {
         Boolean agenciaExists = agenciaService.existsByContato(agenciaDto.getContato());
         if (agenciaExists) {
