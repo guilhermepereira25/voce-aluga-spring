@@ -14,6 +14,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatException;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -49,6 +50,27 @@ public class FuncionarioServiceTests {
         funcionarioService.createFuncionario(funcionarioDto);
         assertThat(funcionario.getNome()).isEqualTo(funcionarioDto.getNome());
         assertThat(funcionario.getDocumento()).isEqualTo(funcionarioDto.getDocumento());
+    }
+
+    @Test
+    public void FuncionarioService_ShouldThrownInvalidDocumentException() throws Exception {
+        FuncionarioDto funcionarioDto = new FuncionarioDto();
+        funcionarioDto.setNome("Teste");
+        funcionarioDto.setDocumento("123456789");
+        funcionarioDto.setCargo("Teste");
+
+        ClienteEntity cliente = ClienteEntity.builder()
+                .nome("Teste")
+                .cpf(funcionarioDto.getDocumento())
+                .senha(funcionarioDto.getDocumento().substring(0, 3))
+                .build();
+
+        Funcionario funcionario = new Funcionario();
+        funcionario.setNome(funcionarioDto.getNome());
+        funcionario.setDocumento(funcionarioDto.getDocumento());
+        funcionario.setCargo(funcionarioDto.getCargo());
+        assertThatException().isThrownBy(() -> funcionarioService.createFuncionario(funcionarioDto));
+        assertThatException().describedAs("Documento inválido");
     }
 
 }
