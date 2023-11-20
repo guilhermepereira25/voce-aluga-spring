@@ -1,13 +1,8 @@
 package com.application.vocealuga.service.impl;
 
 import com.application.vocealuga.dto.ReservaDto;
-import com.application.vocealuga.entity.ClienteEntity;
-import com.application.vocealuga.entity.Funcionario;
-import com.application.vocealuga.entity.Motorista;
-import com.application.vocealuga.repository.ClienteRepository;
-import com.application.vocealuga.repository.FuncionarioRepository;
-import com.application.vocealuga.repository.MotoristaRepository;
-import com.application.vocealuga.repository.TransactionRepository;
+import com.application.vocealuga.entity.*;
+import com.application.vocealuga.repository.*;
 import com.application.vocealuga.service.ReservaService;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -17,11 +12,17 @@ public class ReservaServiceImpl implements ReservaService {
     private ClienteRepository clienteRepository;
     private MotoristaRepository motoristaRepository;
     private FuncionarioRepository funcionarioRepository;
+    private ReservaRepository reservaRepository;
+    private VeiculoRepository  veiculoRepository;
+    private AgenciaRepository agenciaRepository;
 
-    public ReservaServiceImpl(ClienteRepository clienteRepository, MotoristaRepository motoristaRepository, FuncionarioRepository funcionarioRepository) {
+    public ReservaServiceImpl(ClienteRepository clienteRepository, MotoristaRepository motoristaRepository, FuncionarioRepository funcionarioRepository, ReservaRepository reservaRepository, VeiculoRepository veiculoRepository, AgenciaRepository agenciaRepository) {
         this.clienteRepository = clienteRepository;
         this.motoristaRepository = motoristaRepository;
         this.funcionarioRepository = funcionarioRepository;
+        this.reservaRepository = reservaRepository;
+        this.veiculoRepository = veiculoRepository;
+        this.agenciaRepository = agenciaRepository;
     }
 
     public void saveReserva(ReservaDto reservaDto) {
@@ -49,8 +50,26 @@ public class ReservaServiceImpl implements ReservaService {
             throw new RuntimeException("Usuário não encontrado");
         }
 
+        Veiculo veiculo = veiculoRepository.findByPlaca(reservaDto.getPlacaVeiculo());
+        if (veiculo == null) {
+            throw new RuntimeException("Veículo não encontrado");
+        }
 
-        return;
+        Reserva newReserva = new Reserva();
+        newReserva.setDataFim(reservaDto.getDataFim());
+        newReserva.setDataInicio(reservaDto.getDataInicio());
+        newReserva.setCliente(cliente);
+        newReserva.setMotorista(motorista);
+        newReserva.setFuncionario(funcionario);
+        newReserva.setVeiculo(veiculo);
+        newReserva.setAgencia(agenciaRepository.findById(reservaDto.getAgenciaId()).orElseThrow());
+
+        try {
+            reservaRepository.save(newReserva);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            throw new RuntimeException("Erro ao salvar reserva");
+        }
     }
 
     public void deleteReserva() {

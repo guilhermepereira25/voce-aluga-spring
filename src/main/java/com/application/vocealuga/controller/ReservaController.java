@@ -45,6 +45,6 @@ public class ReservaController {
             return "redirect:/reserva/veiculo/" + id + "?error";
         }
 
-        return "redirect:/pagamemnto";
+        return "redirect:/pagamento";
     }
 }
