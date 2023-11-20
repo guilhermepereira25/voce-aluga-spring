@@ -8,6 +8,6 @@ import lombok.Setter;
 public class TransactionDto {
     public String forma;
     public String descricao;
-    public Long idVeiculo;
-    public Long idCliente;
+    public String idFuncionario;
+    public String idCliente;
 }

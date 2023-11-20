@@ -20,8 +20,7 @@ public class TransactionEntity {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_cliente")
     private ClienteEntity cliente;
-
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_veiculo")
+    @JoinColumn(name = "id_funcionario")
     private Funcionario funcionario;
 }

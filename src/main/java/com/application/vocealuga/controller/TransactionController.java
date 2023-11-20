@@ -34,6 +34,6 @@ public class TransactionController {
             return "redirect:/pagamento?error";
         }
 
-        return "transaction?success";
+        return "redirect:/pagamento?success";
     }
 }
