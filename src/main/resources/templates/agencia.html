@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -56,14 +56,16 @@
     </style>
 </head>
 <body>
-    <form>
+    <h3 th:if="${param.error}">Ocorreu um erro</h3>
+
+    <form th:action="@{/criarAgencia}" method="post" th:object="${agencia}">
         <h1>Agência</h1>
 
         <label for="contato">Contato:</label>
-        <input type="text" id="contato" name="contato" required>
+        <input th:field="*{contato}" type="text" id="contato" name="contato" required>
 
         <label for="relatorio">Relatório:</label>
-        <textarea id="relatorio" name="relatorio" rows="4" required></textarea>
+        <textarea th:field="*{relatorio}" id="relatorio" name="relatorio" rows="4" required></textarea>
 
         <button type="submit">Enviar</button>
     </form>
