@@ -56,7 +56,7 @@
     </style>
 </head>
 <body>
-    <form th:action="@{/pagar}" th:object="${transaction}">
+    <form method="post" th:action="@{/pagar}" th:object="${transaction}">
         <h1>Transação</h1>
 
         <label for="nome">Nome:</label>
@@ -64,14 +64,17 @@
 
         <label for="forma">Forma:</label>
         <select th:field="*{forma}" id="forma" name="forma" required>
-            <option value="opcao1">Débito</option>
-            <option value="opcao2">Crédito</option>
-            <option value="opcao3">Pix</option>
-            <option value="opcao4">Dinheiro</option>
+            <option value="debito">Débito</option>
+            <option value="credito">Crédito</option>
+            <option value="pix">Pix</option>
+            <option value="dinheiro">Dinheiro</option>
         </select>
 
-        <label for="data">Data:</label>
+        <label for="data">Data de pagamento:</label>
         <input type="date" id="data" name="data" required>
+
+        <label for="documento">Documento do cliente:</label>
+        <input th:field="*{idCliente}" type="text" id="documento" name="documento" required>
 
         <label for="descricao">Descrição:</label>
         <textarea th:field="*{descricao}" id="descricao" name="descricao" rows="4" required></textarea>
