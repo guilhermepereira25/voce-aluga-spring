@@ -18,7 +18,6 @@ public class Motorista {
     @Column(name = "id_motorista")
     private Long id;
     private String cnh;
-    private String categoria;
     private String nome;
 
     @OneToOne(cascade = CascadeType.ALL)
