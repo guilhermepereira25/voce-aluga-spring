@@ -65,13 +65,13 @@ public class VeiculoServiceImpl implements VeiculoService {
         } else {
             String username = principal.toString();
 
+            ClienteEntity cliente;
             if (username.length() == 11) {
-                ClienteEntity cliente = clienteRepository.findByCpf(username);
-                veiculo.setCliente(cliente);
+                cliente = clienteRepository.findByCpf(username);
             } else {
-                ClienteEntity cliente = clienteRepository.findByCnpj(username);
-                veiculo.setCliente(cliente);
+                cliente = clienteRepository.findByCnpj(username);
             }
+            veiculo.setCliente(cliente);
         }
 
         try {
