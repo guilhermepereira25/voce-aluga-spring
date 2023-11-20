@@ -66,6 +66,8 @@ public class ReservaServiceImpl implements ReservaService {
 
         try {
             reservaRepository.save(newReserva);
+            veiculo.setStatus("reservado");
+            veiculoRepository.save(veiculo);
         } catch (Exception e) {
             System.out.println(e.getMessage());
             throw new RuntimeException("Erro ao salvar reserva");
