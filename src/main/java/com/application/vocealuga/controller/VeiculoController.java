@@ -4,7 +4,6 @@ import com.application.vocealuga.dto.VeiculoDto;
 import com.application.vocealuga.entity.Veiculo;
 import com.application.vocealuga.service.impl.AgenciaServiceImpl;
 import com.application.vocealuga.service.impl.VeiculoServiceImpl;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,21 +25,12 @@ public class VeiculoController {
 
     @GetMapping("/catalogoVeiculos")
     public String catalogoVeiculos(Model model) {
-        Object username = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        System.out.println(username);
         model.addAttribute("veiculos", veiculoService.findBySituacao("ativo"));
         return "catalogo-veiculos";
     }
 
     @GetMapping("/cadastroVeiculo")
     String veiculo(Model model) {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
-        String role = principal.toString();
-
-        if (!role.equals("[ADMIN]")) {
-            return "redirect:/catalogoVeiculos";
-        }
-
         model.addAttribute("agencias", agenciaService.findAll());
         model.addAttribute("veiculo", new VeiculoDto());
         return "form-veiculo";
@@ -70,6 +60,6 @@ public class VeiculoController {
         }
 
         model.addAttribute("veiculo", veiculo);
-        return "redirect:/alugarVeiculo";
+        return "reserva";
     }
 }
