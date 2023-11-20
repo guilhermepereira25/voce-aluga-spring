@@ -68,6 +68,14 @@ public class ClienteServiceTests {
 
     @Test
     public void ClienteService_ShouldThrownPermissaoNotFound() {
+        RegistrationDto registrationDto = new RegistrationDto();
+        registrationDto.setNome("Teste");
+        registrationDto.setCpf("12345678910");
+        registrationDto.setPermissaoId(1L);
+        registrationDto.setSenha("123456");
+        registrationDto.setContato("12345678910");
+        registrationDto.setIdade(20);
+
         when(permissaoRepository.findById(1L)).thenReturn(Optional.empty());
         assertThatThrownBy(() -> clienteService.saveCliente(registrationDto))
                 .isInstanceOf(PermissaoNotFoundException.class)
