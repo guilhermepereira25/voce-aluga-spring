@@ -1,4 +1,4 @@
-package com.application.vocealuga.test.service;
+package com.application.vocealuga.service;
 
 import com.application.vocealuga.dto.RegistrationDto;
 import com.application.vocealuga.entity.ClienteEntity;

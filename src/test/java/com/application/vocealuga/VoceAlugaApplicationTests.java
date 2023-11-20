@@ -1,4 +1,4 @@
-package com.application.vocealuga.test;
+package com.application.vocealuga;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -1,4 +1,4 @@
-package com.application.vocealuga.test.controller;
+package com.application.vocealuga.controller;
 
 import com.application.vocealuga.controller.AuthController;
 import com.application.vocealuga.dto.RegistrationDto;

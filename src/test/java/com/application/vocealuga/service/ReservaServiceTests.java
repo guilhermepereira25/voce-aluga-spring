@@ -1,4 +1,4 @@
-package com.application.vocealuga.test.service;
+package com.application.vocealuga.service;
 
 import com.application.vocealuga.dto.ReservaDto;
 import com.application.vocealuga.dto.TransactionDto;
@@ -17,8 +17,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import java.util.Optional;
 
+import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -37,6 +38,8 @@ public class ReservaServiceTests {
     private MotoristaRepository motoristaRepository;
     @Mock
     private ReservaRepository reservaRepository;
+    @Mock
+    private AgenciaRepository agenciaRepository;
 
     @Test
     public void ReservaService_ShouldCreateReservaWithSuccess() {
@@ -73,18 +76,37 @@ public class ReservaServiceTests {
         when(SecurityContextHolder.getContext().getAuthentication()).thenReturn(authentication);
         when(authentication.getName()).thenReturn("12345678911");
 
+        Agencia agencia = new Agencia();
+        agencia.setId(1L);
+        when(agenciaRepository.findById(Mockito.any(Long.class))).thenReturn(Optional.of(agencia));
 
         Reserva reserva = new Reserva();
         reserva.setMotorista(motorista);
         reserva.setCliente(cliente);
         reserva.setFuncionario(funcionario);
         reserva.setVeiculo(veiculo);
-        reserva.setAgencia(new Agencia());
+        reserva.setAgencia(agencia);
 
         reservaService.saveReserva(reservaDto);
         assertThat(reserva.getMotorista().getCnh()).isEqualTo(reservaDto.getCnhCondutor());
         assertThat(reserva.getCliente().getCpf()).isEqualTo(reservaDto.getClienteDocument());
         assertThat(reserva.getFuncionario().getDocumento()).isEqualTo("12345678911");
         assertThat(reserva.getVeiculo().getPlaca()).isEqualTo(reservaDto.getPlacaVeiculo());
+    }
+
+    @Test
+    public void ReservaService_ShouldNotCreateReservaAndThrownExceptionAndMessageIsClienteNaoEncontrado() {
+        ReservaDto reservaDto = new ReservaDto();
+        reservaDto.setAgenciaId(1L);
+        reservaDto.setCnhCondutor("123456789");
+        reservaDto.setClienteDocument("12345678910");
+        reservaDto.setPlacaVeiculo("ABC1234");
+        reservaDto.setDataFim("2021-01-01");
+        reservaDto.setDataInicio("2021-01-01");
+
+        when(clienteRepository.findByCpf(Mockito.any(String.class))).thenReturn(null);
+
+        assertThatRuntimeException().isThrownBy(() -> reservaService.saveReserva(reservaDto));
+        assertThatException().describedAs("Cliente não encontrado");
     }
 }
