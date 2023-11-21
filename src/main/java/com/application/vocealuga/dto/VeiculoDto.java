@@ -9,6 +9,7 @@ public class VeiculoDto {
     private String placa;
     private String marca;
     private String modelo;
+    private String categoria;
     private String cor;
     private Integer ano;
     private Integer km;

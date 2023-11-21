@@ -43,6 +43,7 @@ public class VeiculoServiceImpl implements VeiculoService {
         Veiculo veiculo = new Veiculo();
         veiculo.setPlaca(veiculoDto.getPlaca());
         veiculo.setModelo(veiculoDto.getModelo());
+        veiculo.setCategoria(veiculoDto.getCategoria());
         veiculo.setKm(veiculoDto.getKm());
         veiculo.setCor(veiculoDto.getCor());
         veiculo.setStatus(veiculoDto.getStatus());

@@ -26,6 +26,8 @@ public class Veiculo {
     private String status;
     @Column(name = "descricao")
     private String descricao;
+    @Column(name = "categoria")
+    private String categoria;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_agencia")
