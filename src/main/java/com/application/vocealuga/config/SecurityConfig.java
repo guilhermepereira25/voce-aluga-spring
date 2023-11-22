@@ -36,7 +36,7 @@ public class SecurityConfig {
                         .requestMatchers(new AntPathRequestMatcher("/cadastro")).permitAll()
                         .requestMatchers(new AntPathRequestMatcher("/cadastrar")).permitAll()
                         .requestMatchers(new AntPathRequestMatcher("/login")).permitAll()
-                        .requestMatchers(new AntPathRequestMatcher("/cadastroVeiculo")).hasRole("ADMIN")
+                        .requestMatchers(new AntPathRequestMatcher("/cadastroVeiculo")).hasAuthority("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form
