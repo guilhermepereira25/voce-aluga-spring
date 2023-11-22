@@ -22,14 +22,13 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String document) throws UsernameNotFoundException {
-        ClienteEntity clienteEntity = clienteRepository.findByCpf(document);
-
-        if (clienteEntity == null) {
+        ClienteEntity clienteEntity;
+        if (document.length() == 11) {
+            clienteEntity = clienteRepository.findByCpf(document);
+        } else if (document.length() == 14) {
             clienteEntity = clienteRepository.findByCnpj(document);
-
-            if (clienteEntity == null) {
-                throw new UsernameNotFoundException("Cliente não encontrado");
-            }
+        } else {
+            throw new UsernameNotFoundException("Documento inválido");
         }
 
         return new User(
