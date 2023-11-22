@@ -23,7 +23,10 @@
                 >
                 <div class="card-body">
                     <h5 class="card-title" th:text="${veiculo.getModelo()}"></h5>
-                    <p class="card-text" th:text="${veiculo.getDescricao()}"></p>
+                    <h6 class="card-subtitle mb-2 text-body-secondary" th:text="${veiculo.getDescricao()}"></h6>
+                    <p class="card-text">
+                        Modelo da categoria <th:block th:text="${veiculo.getCategoria()}"></th:block>
+                    </p>
                     <a th:href="@{/reserva/veiculo/{id}(id=${veiculo.getId()})}" class="btn btn-primary">Alugar este modelo</a>
                 </div>
             </div>

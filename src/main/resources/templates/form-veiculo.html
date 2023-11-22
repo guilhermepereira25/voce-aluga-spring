@@ -80,6 +80,13 @@
             <option value="inativo">Manutenção</option>
         </select>
 
+        <label for="categoria">Categoria:</label>
+        <select th:field="*{categoria}" id="categoria" name="categoria" required>
+            <option value="A">Categoria A</option>
+            <option value="B">Categoria B</option>
+            <option value="C">Categoria C</option>
+        </select>
+
         <label for="descricao">Descrição:</label>
         <textarea th:field="*{descricao}" id="descricao" name="descricao" rows="4" required></textarea>
 
