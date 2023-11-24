@@ -76,6 +76,14 @@ public class ClienteServiceImpl implements ClienteService {
         return null;
     }
 
+    public ClienteEntity findByCpf(String cpf) {
+        return clienteRepository.findByCpf(cpf);
+    }
+
+    public ClienteEntity findByCnpj(String cnpj) {
+        return clienteRepository.findByCnpj(cnpj);
+    }
+
     public Boolean existsByNome(String nome) {
         return clienteRepository.existsByNome(nome);
     }
