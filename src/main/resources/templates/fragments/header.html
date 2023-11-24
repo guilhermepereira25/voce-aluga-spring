@@ -21,9 +21,24 @@
                         <li class="nav-item">
                             <a class="nav-link" th:href="@{/catalogoVeiculos}">Catálogo</a>
                         </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/cadastroVeiculo}">Cadastrar veiculo</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/agencia}">Cadastrar Agencia</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/cadastroFuncionario}">Cadastrar Funcionario</a>
+                        </li>
                     </ul>
+                    <form th:action="@{/consultarCliente}" class="d-flex" role="search">
+                        <input class="form-control me-2" type="search" placeholder="Procurar Cliente" aria-label="Search">
+                        <button class="btn btn-secondary" type="submit">Search</button>
+                    </form>
+
                     <form class="d-flex" role="form" method="POST" th:action="@{/logout}">
-                        <button class="btn btn-outline-success" type="submit">Logout</button>
+                        <button class="btn btn-primary" type="submit">Sair</button>
                     </form>
                 </div>
             </div>
