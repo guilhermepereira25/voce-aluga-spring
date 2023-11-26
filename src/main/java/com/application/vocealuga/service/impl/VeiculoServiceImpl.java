@@ -91,4 +91,29 @@ public class VeiculoServiceImpl implements VeiculoService {
     public Veiculo findByPlaca(String placa) {
         return veiculoRepository.findByPlaca(placa);
     }
+
+    public Veiculo updateVeiculo(VeiculoDto veiculoDto) {
+        Veiculo veiculo = veiculoRepository.findByPlaca(veiculoDto.getPlaca());
+        if (veiculo == null) {
+            return null;
+        }
+
+        if (veiculo.getStatus() != null && veiculo.getStatus().equals("reservado")) {
+            return null;
+        }
+
+        veiculo.setModelo(veiculoDto.getModelo());
+        veiculo.setStatus(veiculoDto.getStatus());
+        veiculo.setDescricao(veiculoDto.getDescricao());
+        veiculo.setCor(veiculoDto.getCor());
+        veiculo.setKm(veiculoDto.getKm());
+
+        try {
+            veiculoRepository.save(veiculo);
+            return veiculo;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
 }
