@@ -19,6 +19,12 @@ public class TransactionController {
         this.transactionService = transactionService;
     }
 
+    @GetMapping("/transacoes")
+    public String transactions(Model model) {
+        model.addAttribute("transactions", transactionService.findAll());
+        return "listar-transacoes";
+    }
+
     @GetMapping("/pagamento")
     public String transaction(Model model) {
         model.addAttribute("transaction", new TransactionDto());

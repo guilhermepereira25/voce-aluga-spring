@@ -14,6 +14,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class TransactionServiceImpl implements TransactionService {
     private TransactionRepository transactionRepository;
@@ -24,6 +26,10 @@ public class TransactionServiceImpl implements TransactionService {
         this.transactionRepository = transactionRepository;
         this.clienteRepository = clienteRepository;
         this.funcionarioRepository = funcionarioRepository;
+    }
+
+    public List<TransactionEntity> findAll() {
+        return transactionRepository.findAll();
     }
 
     public void saveTransaction(TransactionDto transactionDto) {
