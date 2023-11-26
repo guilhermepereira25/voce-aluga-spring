@@ -17,6 +17,7 @@ public class Funcionario {
     private String cargo;
     private String nome;
     private String documento;
+    private String contato;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
