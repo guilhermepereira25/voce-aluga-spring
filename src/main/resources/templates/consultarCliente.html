@@ -40,6 +40,25 @@
                 </tr>
             </tbody>
     </table>
+
+    <table class="table" th:if="${cliente == null}">
+        <thead>
+        <tr>
+            <th scope="col">Nome</th>
+            <th scope="col">Documento</th>
+            <th scope="col">Telefone</th>
+            <th scope="col">Idade</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="cliente : ${clientes}">
+            <td th:text="${cliente.getNome()}"></td>
+            <td th:text="${cliente.getCpf()}"></td>
+            <td th:text="${cliente.getContato()}"></td>
+            <td th:text="${cliente.getIdade()}"></td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 </body>
 </html>
