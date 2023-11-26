@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<head>
+    <th:block th:insert="~{fragments/general :: head}"></th:block>
+    <title>Voce Aluga - Transacoes</title>
+</head>
+<body>
+<header th:insert="~{fragments/header :: header}"></header>
+
+<div class="container">
+    <div class="d-flex justify-content-center mb-3">
+        <h1 class="text-center">Listagem de Transações</h1>
+    </div>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Forma</th>
+            <th scope="col">Descrição</th>
+            <th scope="col">Documento</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="transaction : ${transactions}">
+            <td th:text="${transaction.getIdTransacao()}"></td>
+            <td th:text="${transaction.getForma()}"></td>
+            <td th:text="${transaction.getDescricao()}"></td>
+            <td th:if="${transaction.getCliente().cpf != null}" th:text="${transaction.getCliente().cpf}"></td>
+            <td th:if="${transaction.getCliente().cnpj != null}" th:text="${transaction.getCliente().cnpj}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
