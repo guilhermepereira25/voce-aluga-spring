@@ -28,6 +28,8 @@ public class ClienteController {
                 ClienteEntity cliente = getClienteFromRequest(document);
                 if (cliente == null) return "redirect:/consultarCliente?error=1";
                 model.addAttribute("cliente", cliente);
+            } else {
+                model.addAttribute("clientes", clienteService.findAll());
             }
 
             model.addAttribute("clienteDto", new ClienteDto());
