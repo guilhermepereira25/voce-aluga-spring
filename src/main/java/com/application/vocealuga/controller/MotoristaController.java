@@ -32,9 +32,8 @@ public class MotoristaController {
     @PostMapping("/cadastrarMotorista")
     public String cadastroMotorista(@ModelAttribute MotoristaDto motoristaDto) {
         Motorista motorista = motoristaRepository.findByCnh(motoristaDto.getCnh());
-
         if (motorista != null) {
-            return "form-motorista?error";
+            return "redirect:/cadastroMotorista?error=1";
         }
 
         Motorista newDriver = new Motorista();
@@ -45,10 +44,10 @@ public class MotoristaController {
 
         try {
             motoristaRepository.save(newDriver);
-            return "form-motorista?success";
+            return "redirect:/cadastroMotorista?success";
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            return "form-motorista?error";
+            return "redirect:/cadastroMotorista?error=2";
         }
     }
 }

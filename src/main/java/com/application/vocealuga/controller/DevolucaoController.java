@@ -36,11 +36,10 @@ public class DevolucaoController {
 
         try {
             devolucaoRepository.save(devolucao);
+            return "redirect:/veiculo/devolver?success";
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return "redirect:/veiculo/devolver?error=1";
         }
-
-        return "devolucao";
     }
 }
