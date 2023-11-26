@@ -87,4 +87,8 @@ public class VeiculoServiceImpl implements VeiculoService {
     public Boolean existsByPlaca(String placa) {
         return veiculoRepository.existsByPlaca(placa);
     }
+
+    public Veiculo findByPlaca(String placa) {
+        return veiculoRepository.findByPlaca(placa);
+    }
 }
