@@ -55,10 +55,11 @@
     </style>
 </head>
 <body>
-    <div th:if="${param.success}" class="alert alert-info mt-2">Cadastro concluído.</div>
-
     <form th:action="@{/cadastrarMotorista}" method="post" th:object="${motorista}">
         <h1>Cadastro Motorista</h1>
+        <div th:if="${param.success}" class="alert alert-info mt-2">Cadastro concluído.</div>
+        <div th:if="${(param.error != null) and (param.error[0] == '1')}" class="alert alert-danger mt-2">Motorista já existe no sistema</div>
+        <div th:if="${(param.error != null) and (param.error[0] == '2')}" class="alert alert-danger mt-2">Ocorreu um erro ao cadastrar motorista</div>
 
         <label for="nome">Nome:</label>
         <input th:field="*{nome}" type="text" id="nome" name="nome" required>
@@ -70,6 +71,7 @@
         <input th:field="*{cnh}" type="text" id="cnh" name="cnh" required>
 
         <button class="btn btn-primary" type="submit">Cadastrar</button>
+        <a href="/home" class="btn btn-info">Voltar para home</a>
     </form>
 </body>
 </html>

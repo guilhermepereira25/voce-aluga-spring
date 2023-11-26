@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <th:block th:insert="~{fragments/general :: head}"></th:block>
     <title>Devolução</title>
     <style>
         body {
@@ -58,6 +57,7 @@
 <body>
     <form th:object="${devolucaoDto}" method="post" th:action="@{/devolver/veiculo}" onsubmit="return handleDevolucaoSubmit()">
         <h1>Devolução</h1>
+        <div th:if="${param.success}" class="alert alert-info mt-2">Devolução concluída.</div>
 
         <label for="cobranca">Cobrança:</label>
         <input th:field="*{cobranca}" type="text" id="cobranca" name="cobranca" required>

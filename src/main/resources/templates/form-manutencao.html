@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <th:block th:insert="~{fragments/general :: head}"></th:block>
     <title>Manutenção</title>
     <style>
         body {
@@ -77,6 +76,7 @@
         </select>
 
         <button type="submit">Enviar</button>
+        <a href="/home" class="btn btn-info">Voltar para home</a>
     </form>
 </body>
 </html>
