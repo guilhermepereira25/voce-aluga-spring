@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @Controller
@@ -41,5 +42,11 @@ public class TransactionController {
         }
 
         return "redirect:/pagamento?success";
+    }
+
+    @PostMapping("/transacao/deletar")
+    public String deleteTransaction(@RequestParam("id") Long id) {
+        transactionService.deleteTransaction(id);
+        return "redirect:/transacoes";
     }
 }

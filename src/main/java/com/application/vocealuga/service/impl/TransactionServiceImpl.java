@@ -59,8 +59,9 @@ public class TransactionServiceImpl implements TransactionService {
         }
     }
 
-    public void deleteTransaction() {
-        return;
+    public void deleteTransaction(Long id) {
+        TransactionEntity transactionEntity = transactionRepository.findById(id).orElseThrow();
+        transactionRepository.delete(transactionEntity);
     }
 
     public void updateTransaction() {

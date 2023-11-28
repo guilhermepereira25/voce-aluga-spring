@@ -19,6 +19,7 @@
             <th scope="col">Forma</th>
             <th scope="col">Descrição</th>
             <th scope="col">Documento</th>
+            <th scope="col">Ações</th>
         </tr>
         </thead>
         <tbody>
@@ -26,8 +27,18 @@
             <td th:text="${transaction.getIdTransacao()}"></td>
             <td th:text="${transaction.getForma()}"></td>
             <td th:text="${transaction.getDescricao()}"></td>
-            <td th:if="${transaction.getCliente().cpf != null}" th:text="${transaction.getCliente().cpf}"></td>
-            <td th:if="${transaction.getCliente().cnpj != null}" th:text="${transaction.getCliente().cnpj}"></td>
+            <th:block th:if="${transaction.getCliente().cpf.isEmpty() == false}">
+                <td th:text="${transaction.getCliente().cpf}"></td>
+            </th:block>
+            <th:block th:if="${transaction.getCliente().cnpj.isEmpty() == false}">
+                <td th:text="${transaction.getCliente().cnpj}"></td>
+            </th:block>
+            <td>
+                <form th:action="@{/transacao/deletar}" method="POST">
+                    <input type="hidden" th:name="id" th:value="${transaction.getIdTransacao()}">
+                    <button class="btn btn-danger" type="submit">Deletar</button>
+                </form>
+            </td>
         </tr>
         </tbody>
     </table>
