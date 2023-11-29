@@ -59,6 +59,8 @@ public class ManutencaoController {
             manutencao.setFuncionario(funcionario);
             manutencao.setVeiculo(veiculo);
 
+            veiculo.setStatus("manutencao");
+            veiculoRepository.save(veiculo);
             manutencaoRepository.save(manutencao);
         } catch (Exception e) {
             System.out.println(e.getMessage());

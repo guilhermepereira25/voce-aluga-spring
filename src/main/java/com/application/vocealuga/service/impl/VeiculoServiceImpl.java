@@ -102,11 +102,29 @@ public class VeiculoServiceImpl implements VeiculoService {
             return null;
         }
 
-        veiculo.setModelo(veiculoDto.getModelo());
-        veiculo.setStatus(veiculoDto.getStatus());
-        veiculo.setDescricao(veiculoDto.getDescricao());
-        veiculo.setCor(veiculoDto.getCor());
-        veiculo.setKm(veiculoDto.getKm());
+        if (!veiculoDto.getModelo().isEmpty()) {
+            veiculo.setModelo(veiculoDto.getModelo());
+        }
+
+        if (veiculoDto.getKm() > 0 && !veiculoDto.getKm().equals(veiculo.getKm())) {
+            veiculo.setKm(veiculoDto.getKm());
+        }
+
+        if (!veiculoDto.getCategoria().isEmpty()) {
+            veiculo.setCategoria(veiculoDto.getCategoria());
+        }
+
+        if (!veiculoDto.getCor().isEmpty()) {
+            veiculo.setCor(veiculoDto.getCor());
+        }
+
+        if (!veiculoDto.getStatus().isEmpty()) {
+            veiculo.setStatus(veiculoDto.getStatus());
+        }
+
+        if (!veiculoDto.getDescricao().isEmpty()) {
+            veiculo.setDescricao(veiculoDto.getDescricao());
+        }
 
         try {
             veiculoRepository.save(veiculo);

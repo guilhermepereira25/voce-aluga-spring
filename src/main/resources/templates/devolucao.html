@@ -68,6 +68,9 @@
         <label for="descricao">Descrição:</label>
         <textarea th:field="*{descricao}" id="descricao" name="descricao" rows="4" required></textarea>
 
+        <label for="idVeiculo">Veiculo: </label>
+        <input id="idVeiculo" readonly th:field="*{idVeiculo}" th:placeholder="${veiculo.id}">
+
         <label for="dataDevolucao">Data de Devolução:</label>
         <input th:field="*{dataDevolucao}" type="date" id="dataDevolucao" name="dataDevolucao" required>
 
@@ -77,8 +80,8 @@
 
 <script>
     function handleDevolucaoSubmit() {
-        let confirm = confirm("Tem certeza que deseja mesmo devolver o veículo?")
-        return !!confirm;
+        document.getElementById("idVeiculo").value = document.getElementById("idVeiculo").placeholder;
+        confirm("Deseja realmente devolver o veículo?");
     }
 </script>
 </html>
