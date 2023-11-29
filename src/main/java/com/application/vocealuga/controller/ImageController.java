@@ -33,7 +33,6 @@ public class ImageController {
             InputStream inputStream = getClass().getResourceAsStream("/static/nota.jpeg");
             OutputStream outputStream = response.getOutputStream();
             if (outputStream != null && inputStream != null) {
-                System.out.println("outputStream is not null");
                 response.setContentType(MediaType.IMAGE_JPEG_VALUE);
                 byte[] buffer = new byte[1024];
                 int bytesRead;
@@ -42,7 +41,7 @@ public class ImageController {
                 }
                 outputStream.flush();
             } else {
-                System.out.println("outputStream is null");
+                response.setStatus(404);
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
