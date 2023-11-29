@@ -81,6 +81,10 @@
 
         <button type="submit">Registrar Transação</button>
         <a href="/home" class="btn btn-info">Voltar para home</a>
+
+        <div th:if="${param.success}" class="block mt-3">
+            <a href="/getNota" class="btn btn-secondary w-100">Gerar nota</a>
+        </div>
     </form>
 </body>
 </html>

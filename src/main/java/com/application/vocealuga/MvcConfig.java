@@ -13,4 +13,9 @@ public class MvcConfig implements WebMvcConfigurer {
         registry.addViewController("/pagamento").setViewName("transaction");
         registry.addViewController("/estoque").setViewName("estoque");
     }
+
+    @Override
+    public void addResourceHandlers(org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
+    }
 }
