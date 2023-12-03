@@ -17,10 +17,10 @@ public class TransactionEntity {
     private Long idTransacao;
     private String forma;
     private String descricao;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST })
     @JoinColumn(name = "id_cliente")
     private ClienteEntity cliente;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST })
     @JoinColumn(name = "id_funcionario")
     private Funcionario funcionario;
 }

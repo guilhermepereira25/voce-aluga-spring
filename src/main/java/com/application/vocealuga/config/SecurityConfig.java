@@ -33,6 +33,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .authorizeHttpRequests((requests) -> requests
+                        .requestMatchers(new AntPathRequestMatcher("/resources/**")).permitAll()
                         .requestMatchers(new AntPathRequestMatcher("/cadastro")).permitAll()
                         .requestMatchers(new AntPathRequestMatcher("/cadastrar")).permitAll()
                         .requestMatchers(new AntPathRequestMatcher("/login")).permitAll()

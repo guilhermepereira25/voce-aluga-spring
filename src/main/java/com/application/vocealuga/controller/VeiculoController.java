@@ -96,13 +96,24 @@ public class VeiculoController {
     @RequestMapping("/veiculo/atualizar/{id}")
     public String atualizarVeiculo(@PathVariable("id") Long id, Model model) {
         Veiculo veiculo = veiculoService.findById(id);
-
         if (veiculo == null) {
             return "redirect:/catalogoVeiculos";
         }
 
         model.addAttribute("veiculo", veiculo);
-        return "atualizar-veiculo";
+        model.addAttribute("agencias", agenciaService.findAll());
+        model.addAttribute("veiculoDto", new VeiculoDto());
+        return "alterar-veiculo";
+    }
+
+    @PostMapping("/veiculo/atualizar")
+    public String updateVeiculo(@ModelAttribute VeiculoDto veiculoDto) {
+        Veiculo veiculoUpdated = veiculoService.updateVeiculo(veiculoDto);
+        if (veiculoUpdated == null) {
+            return "redirect:/catalogoVeiculos";
+        }
+
+        return "redirect:/veiculo/atualizar/" + veiculoUpdated.getId() + "?success";
     }
 
     @GetMapping("/veiculo/devolver/{id}")

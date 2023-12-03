@@ -4,6 +4,6 @@ import com.application.vocealuga.dto.TransactionDto;
 
 public interface TransactionService {
     public void saveTransaction(TransactionDto transactionDto);
-    public void deleteTransaction();
+    public void deleteTransaction(Long id);
     public void updateTransaction();
 }

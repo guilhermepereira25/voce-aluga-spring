@@ -29,15 +29,28 @@ public class FuncionarioServiceImpl implements FuncionarioService {
         funcionario.setNome(funcionarioDto.getNome());
         funcionario.setDocumento(funcionarioDto.getDocumento());
         funcionario.setCargo(funcionarioDto.getCargo());
+        funcionario.setContato(funcionarioDto.getContato());
 
-        String password = getGeneratedPassword(funcionarioDto.getDocumento());
-        ClienteEntity cliente = new ClienteEntity();
-        cliente.setNome(funcionarioDto.getNome());
-        cliente.setCpf(funcionarioDto.getDocumento());
-        cliente.setSenha(password);
+        String document = funcionarioDto.getDocumento();
+        ClienteEntity cliente;
+        if (document.length() == 11) {
+            cliente = clienteRepository.findByCpf(document);
+        } else if (document.length() == 14) {
+            cliente = clienteRepository.findByCnpj(document);
+        } else {
+            throw new Exception("Documento inválido");
+        }
+
+        if (cliente == null) {
+            String password = getGeneratedPassword(funcionarioDto.getDocumento());
+            ClienteEntity newCliente = new ClienteEntity();
+            newCliente.setNome(funcionarioDto.getNome());
+            newCliente.setCpf(funcionarioDto.getDocumento());
+            newCliente.setSenha(password);
+            cliente = clienteRepository.save(newCliente);
+        }
 
         try {
-            clienteRepository.save(cliente);
             funcionario.setCliente(cliente);
             funcionarioRepository.save(funcionario);
         } catch (Exception e) {

@@ -10,4 +10,5 @@ public class DevolucaoDto {
     private String descricao;
     private String dataDevolucao;
     private String cnh;
+    private Long idVeiculo;
 }

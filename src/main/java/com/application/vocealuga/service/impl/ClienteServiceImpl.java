@@ -40,6 +40,10 @@ public class ClienteServiceImpl implements ClienteService {
         return clienteRepository.getReferenceById(id);
     }
 
+    public List<ClienteEntity> findAll() {
+        return clienteRepository.findAll();
+    }
+
     @Override
     public boolean saveCliente(RegistrationDto registrationDTO) throws PermissaoNotFoundException {
         ClienteEntity clienteEntity = new ClienteEntity();

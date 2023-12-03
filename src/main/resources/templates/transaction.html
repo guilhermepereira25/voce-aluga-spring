@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <th:block th:insert="~{fragments/general :: head}"></th:block>
     <title>Transação</title>
     <style>
         body {
@@ -58,6 +57,7 @@
 <body>
     <form method="post" th:action="@{/pagar}" th:object="${transaction}">
         <h1>Transação</h1>
+        <div th:if="${param.success}" class="alert alert-info mt-2">Transação concluída.</div>
 
         <label for="nome">Nome:</label>
         <input type="text" id="nome" name="nome" required>
@@ -80,6 +80,11 @@
         <textarea th:field="*{descricao}" id="descricao" name="descricao" rows="4" required></textarea>
 
         <button type="submit">Registrar Transação</button>
+        <a href="/home" class="btn btn-info">Voltar para home</a>
+
+        <div th:if="${param.success}" class="block mt-3">
+            <a href="/getNota" class="btn btn-secondary w-100">Gerar nota</a>
+        </div>
     </form>
 </body>
 </html>

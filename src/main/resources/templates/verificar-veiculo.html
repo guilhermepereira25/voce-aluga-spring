@@ -75,7 +75,7 @@
             <td th:text="${veiculo.getPlaca()}"></td>
             <td th:text="${veiculo.getStatus()}"></td>
             <td>
-                <a th:href="@{/atualizar/veiculo/{id}(id=${veiculo.getId()})}" class="btn btn-primary">Alterar</a>
+                <a th:href="@{/veiculo/atualizar/{id}(id=${veiculo.getId()})}" class="btn btn-primary">Alterar</a>
                 <a th:if="${veiculo.getStatus() == 'reservado'}" th:href="@{/veiculo/devolver/{id}(id=${veiculo.getId()})}" class="btn btn-danger">Devolver</a>
             </td>
         </tr>
